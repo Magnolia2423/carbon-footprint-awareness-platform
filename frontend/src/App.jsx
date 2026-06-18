@@ -34,7 +34,7 @@ function App() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/calculate",
+        "https://carbon-footprint-awareness-platform-x04l.onrender.com/api/calculate",
         formData
       );
 
