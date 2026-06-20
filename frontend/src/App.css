@@ -102,3 +102,34 @@ button:hover {
   border-top: 1px solid #ddd;
   padding-top: 15px;
 }
+
+.trees {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1b5e20;
+  margin-top: 10px;
+}
+
+.download-btn {
+  margin-top: 15px;
+  background: #1565c0;
+}
+
+.download-btn:hover {
+  background: #0d47a1;
+}
+
+.history {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.history h3 {
+  color: #2e7d32;
+}
+
+.history li {
+  margin-bottom: 8px;
+}
