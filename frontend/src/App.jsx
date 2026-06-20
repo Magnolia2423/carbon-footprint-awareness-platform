@@ -2,6 +2,27 @@ import { useState } from "react";
 import axios from "axios";
 import "./App.css";
 
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+import { Bar } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 function App() {
   const [formData, setFormData] = useState({
     transport: "",
@@ -23,14 +44,14 @@ function App() {
     e.preventDefault();
 
     if (
-  Number(formData.transport) < 0 ||
-  Number(formData.electricity) < 0 ||
-  Number(formData.food) < 0 ||
-  Number(formData.waste) < 0
-) {
-  alert("Values cannot be negative");
-  return;
-}
+      Number(formData.transport) < 0 ||
+      Number(formData.electricity) < 0 ||
+      Number(formData.food) < 0 ||
+      Number(formData.waste) < 0
+    ) {
+      alert("Values cannot be negative");
+      return;
+    }
 
     try {
       const res = await axios.post(
@@ -43,6 +64,21 @@ function App() {
       console.error(error);
       alert("Error connecting to backend");
     }
+  };
+
+  const chartData = {
+    labels: ["Transport", "Electricity", "Food", "Waste"],
+    datasets: [
+      {
+        label: "Carbon Emissions",
+        data: [
+          Number(formData.transport) * 0.21,
+          Number(formData.electricity) * 0.85,
+          Number(formData.food) * 2,
+          Number(formData.waste) * 1.5,
+        ],
+      },
+    ],
   };
 
   const getStatus = () => {
@@ -123,12 +159,18 @@ function App() {
               <li>Carry reusable bags and water bottles.</li>
             </ul>
           </div>
+
+          <div className="chart-container">
+            <h3>📊 Emission Breakdown</h3>
+            <Bar data={chartData} />
+          </div>
         </>
       )}
+
       <footer className="footer">
-  <p>© 2026 Carbon Footprint Awareness Platform</p>
-  <p>Built with React, Node.js & Express</p>
-</footer>
+        <p>© 2026 Carbon Footprint Awareness Platform</p>
+        <p>Built with React, Node.js & Express</p>
+      </footer>
     </div>
   );
 }
